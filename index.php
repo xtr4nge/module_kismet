@@ -72,14 +72,14 @@ $service = $_POST["service"];
     if (file_exists($bin_kismet_server)) { 
         echo "&nbsp;&nbsp; kismet <font style='color:lime'>installed</font><br>";
     } else {
-        echo "&nbsp;&nbsp; kismet <a href='includes/module_action.php?service=install_kismet' style='color:red'>install</a><br>";
+        echo "&nbsp;&nbsp; kismet <a href='includes/module_action.php?install=install_kismet' style='color:red'>install</a><br>";
     } 
     ?>
     <? 
     if (file_exists($bin_gpsd)) { 
         echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <font style='color:lime'>installed</font><br>";
     } else {
-        echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <a href='includes/module_action.php?service=install_kismet' style='color:red'>install</a><br>";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <a href='includes/module_action.php?install=install_kismet' style='color:red'>install</a><br>";
     } 
     ?>
     <?
