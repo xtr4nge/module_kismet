@@ -9,6 +9,7 @@ $mod_isup="ps auxww | grep kismet_server | grep -v -e grep";
 $mod_alias="Kismet";
 # EXEC
 $bin_danger = "/usr/share/FruityWifi/bin/danger";
+$bin_sudo = "/usr/bin/sudo";
 $bin_kismet_server = "/usr/bin/kismet_server";
 $bin_gpsd = "/usr/sbin/gpsd";
 $bin_killall = "/usr/bin/killall";
