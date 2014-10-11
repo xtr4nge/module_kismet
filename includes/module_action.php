@@ -27,7 +27,7 @@ if ($regex == 1) {
     regex_standard($_GET["service"], "../msg.php", $regex_extra);
     regex_standard($_GET["file"], "../msg.php", $regex_extra);
     regex_standard($_GET["action"], "../msg.php", $regex_extra);
-    regex_standard($iface_wifi_extra, "../msg.php", $regex_extra);
+    regex_standard($io_in_iface_extra, "../msg.php", $regex_extra);
     regex_standard($_GET["install"], "../msg.php", $regex_extra);
 }
 
@@ -40,7 +40,7 @@ if($service == "kismet") {
     if ($action == "start") {
         
         // START MONITOR MODE (mon0)
-        start_monitor_mode($iface_wifi_extra);
+        start_monitor_mode($io_in_iface_extra);
         
         $exec = "$bin_kismet_server -p $mod_logs_history -s --daemonize -c mon0 > /dev/null &";
         exec("$bin_danger \"$exec\"" );

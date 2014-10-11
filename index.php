@@ -1,6 +1,6 @@
 <? 
 /*
-	Copyright (C) 2013  xtr4nge [_AT_] gmail.com
+	Copyright (C) 2013-2014  xtr4nge [_AT_] gmail.com
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -46,6 +46,7 @@ $(function() {
 
 include "_info_.php";
 include "../../config/config.php";
+include "../../login_check.php";
 include "../../functions.php";
 
 // Checking POST & GET variables...
@@ -72,14 +73,14 @@ $service = $_POST["service"];
     if (file_exists($bin_kismet_server)) { 
         echo "&nbsp;&nbsp; kismet <font style='color:lime'>installed</font><br>";
     } else {
-        echo "&nbsp;&nbsp; kismet <a href='includes/module_action.php?service=install_kismet' style='color:red'>install</a><br>";
+        echo "&nbsp;&nbsp; kismet <a href='includes/module_action.php?install=install_kismet' style='color:red'>install</a><br>";
     } 
     ?>
     <? 
     if (file_exists($bin_gpsd)) { 
         echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <font style='color:lime'>installed</font><br>";
     } else {
-        echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <a href='includes/module_action.php?service=install_kismet' style='color:red'>install</a><br>";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <a href='includes/module_action.php?install=install_kismet' style='color:red'>install</a><br>";
     } 
     ?>
     <?
@@ -111,15 +112,20 @@ $service = $_POST["service"];
 
 <br>
 
-
 <div id="msg" style="font-size:largest;">
 Loading, please wait...
 </div>
 
-<div id="body" style="display:none;">
+<d-iv id="body" style="display:none;">
+<div id="result" class="module">
+    <ul>
+        <li><a href="#result-1">Output</a></li>
+		<li><a href="#result-2">About</a></li>
+    </ul>
 
+	<!-- OUTPUT -->
 
-    <div id="result" class="module" style='padding:10px;'>
+    <div id="result-1" class="module history" style='padding:10px;'>
 
         <a href="includes/output.php?file=all">export all</a>
         <?
@@ -147,6 +153,16 @@ Loading, please wait...
         ?>
 
     </div>
+
+	<!-- END OUTPUT -->
+	
+	<!-- ABOUT -->
+
+	<div id="result-2" class="history">
+		<? include "includes/about.php"; ?>
+	</div>
+	
+	<!-- END ABOUT -->
 
 </div>
 
