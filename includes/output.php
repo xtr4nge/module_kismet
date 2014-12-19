@@ -1,6 +1,6 @@
 <? 
 /*
-	Copyright (C) 2013  xtr4nge [_AT_] gmail.com
+	Copyright (C) 2013 xtr4nge [_AT_] gmail.com
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 ?>
 <?
 //include "../login_check.php";
+include "../../../config/config.php";
 include "../_info_.php";
-include "/usr/share/FruityWifi/www/config/config.php";
-include "/usr/share/FruityWifi/www/functions.php";
+include "../../../functions.php";
 
 // Checking POST & GET variables...
 if ($regex == 1) {
@@ -33,30 +33,41 @@ $action = $_GET["action"];
 
 if ($file == "all") {
     $exec = "$bin_giskismet --database $mod_logs_history/wireless.dbl -x $mod_logs_history/*.netxml";
-    exec("$bin_danger \"$exec\"" );
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
     $exec = "$bin_giskismet --database $mod_logs_history/wireless.dbl -q 'select * from wireless' -o $mod_logs_history/output_all.kml";
-    exec("$bin_danger \"$exec\"" );
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
 } else {
     if ($action == "delete") {
         $exec = "$bin_rm $mod_logs_history/$file.netxml";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_rm $mod_logs_history/$file.pcapdump";
-        exec("$bin_danger \"$exec\"" );        
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_rm $mod_logs_history/$file.alert";
-        exec("$bin_danger \"$exec\"" );        
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_rm $mod_logs_history/$file.gpsxml";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_rm $mod_logs_history/$file.nettxt";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_rm $mod_logs_history/$file.kml";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     } else {
         $exec = "$bin_rm $mod_logs_history/wireless.dbl";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_giskismet --database $mod_logs_history/wireless.dbl -x $mod_logs_history/$file.netxml";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         $exec = "$bin_giskismet --database $mod_logs_history/wireless.dbl -q 'select * from wireless' -o $mod_logs_history/output_$file.kml";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     }
 }
 

@@ -1,6 +1,6 @@
 <? 
 /*
-	Copyright (C) 2013  xtr4nge [_AT_] gmail.com
+	Copyright (C) 2013 xtr4nge [_AT_] gmail.com
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 ?>
 <?
 //include "../login_check.php";
+include "../../../config/config.php";
 include "../_info_.php";
-include "/usr/share/FruityWifi/www/config/config.php";
-include "/usr/share/FruityWifi/www/functions.php";
+include "../../../functions.php";
 
 // Checking POST & GET variables...
 if ($regex == 1) {
@@ -43,10 +43,12 @@ if($service == "kismet") {
         start_monitor_mode($io_in_iface_extra);
         
         $exec = "$bin_kismet_server -p $mod_logs_history -s --daemonize -c mon0 > /dev/null &";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     } else if($action == "stop") {
         $exec = "$bin_killall $bin_kismet_server";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     }
 
 }
@@ -54,20 +56,24 @@ if($service == "kismet") {
 if($service == "gpsd") {
     if ($action == "start") {
         $exec = "$bin_gpsd /dev/ttyUSB0 &";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     } else if($action == "stop") {
         $exec = "$bin_killall gpsd";
-        exec("$bin_danger \"$exec\"" );
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     }
 }
 
 if ($install == "install_kismet") {
 
     $exec = "chmod 755 install.sh";
-    exec("$bin_danger \"$exec\"" );
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
 
-    $exec = "$bin_sudo ./install.sh > /usr/share/FruityWifi/logs/install.txt &";
-    exec("$bin_danger \"$exec\"" );
+    $exec = "$bin_sudo ./install.sh > $log_path/install.txt &";
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
 
     header('Location: ../../install.php?module=kismet');
     exit;
