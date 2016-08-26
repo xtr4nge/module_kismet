@@ -1,6 +1,6 @@
 <? 
 /*
-	Copyright (C) 2013-2014  xtr4nge [_AT_] gmail.com
+	Copyright (C) 2013-2016  xtr4nge [_AT_] gmail.com
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -71,24 +71,24 @@ $service = $_POST["service"];
     &nbsp;&nbsp;version <?=$mod_version?><br>
     <? 
     if (file_exists($bin_kismet_server)) { 
-        echo "&nbsp;&nbsp; kismet <font style='color:lime'>installed</font><br>";
+        echo "&nbsp;&nbsp;&nbsp;$mod_alias <font style='color:lime'>installed</font><br>";
     } else {
-        echo "&nbsp;&nbsp; kismet <a href='includes/module_action.php?install=install_kismet' style='color:red'>install</a><br>";
+        echo "&nbsp;&nbsp;&nbsp;$mod_alias <a href='includes/module_action.php?install=install_$mod_name' style='color:red'>install</a><br>";
     } 
     ?>
     <? 
     if (file_exists($bin_gpsd)) { 
         echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <font style='color:lime'>installed</font><br>";
     } else {
-        echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <a href='includes/module_action.php?install=install_kismet' style='color:red'>install</a><br>";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp; GPSD <a href='includes/module_action.php?install=install_$mod_name' style='color:red'>install</a><br>";
     } 
     ?>
     <?
     $iskismetup = exec("ps auxww | grep kismet_server | grep -v -e grep");
     if ($iskismetup != "") {
-        echo "&nbsp;&nbsp;&nbsp;Kismet  <font color=\"lime\"><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=kismet&action=stop&page=module'><b>stop</b></a><br />";
+        echo "&nbsp;&nbsp;&nbsp;$mod_alias  <font color=\"lime\"><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=$mod_name&action=stop&page=module'><b>stop</b></a><br />";
     } else { 
-        echo "&nbsp;&nbsp;&nbsp;Kismet  <font color=\"red\"><b>disabled</b></font>. | <a href='includes/module_action.php?service=kismet&action=start&page=module'><b>start</b></a><br />";
+        echo "&nbsp;&nbsp;&nbsp;$mod_alias  <font color=\"red\"><b>disabled</b></font>. | <a href='includes/module_action.php?service=$mod_name&action=start&page=module'><b>start</b></a><br />";
     }
     ?>
     <?
@@ -107,6 +107,24 @@ $service = $_POST["service"];
         echo "&nbsp;&nbsp;ttyUSB0  <font color=\"red\"><b>disconnected</b></font>.<br />";
     }
     ?>
+	<?
+	if (isset($_GET["show"])) {
+		$exec = "gpspipe -w | grep -m 1 TPV";
+		exec($exec, $output);
+		
+		$json = json_decode($output[0]);
+		$LAT = $json->{"lat"};
+		$LON = $json->{"lon"};
+		
+		if ($LAT != "" and $LON != "") {
+			echo "&nbsp;Location <font color='black'>$LAT, $LON</font><br />";
+		} else {
+			echo "&nbsp;Location <font color='black'>not available</font><br />";
+		}
+    } else { 
+        echo "&nbsp;Location <font color='black'>[<a href='?show'>show</a>]</font><br />";
+    }
+	?>
     
 </div>
 
@@ -119,13 +137,13 @@ Loading, please wait...
 <d-iv id="body" style="display:none;">
 <div id="result" class="module">
     <ul>
-        <li><a href="#result-1">Output</a></li>
-		<li><a href="#result-2">About</a></li>
+        <li><a href="#tab-output">Output</a></li>
+		<li><a href="#tab-about">About</a></li>
     </ul>
 
 	<!-- OUTPUT -->
 
-    <div id="result-1" class="module history" style='padding:10px;'>
+    <div id="tab-output" class="history" style='padding:10px;'>
 
         <a href="includes/output.php?file=all">export all</a>
         <?
@@ -158,7 +176,7 @@ Loading, please wait...
 	
 	<!-- ABOUT -->
 
-	<div id="result-2" class="history">
+	<div id="tab-about" class="history">
 		<? include "includes/about.php"; ?>
 	</div>
 	
