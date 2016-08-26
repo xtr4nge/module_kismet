@@ -37,6 +37,7 @@ apt-get -y install libdbd-sqlite3-perl
 #svn co https://my-svn.assembla.com/svn/giskismet/trunk giskismet
 #cd giskismet
 wget https://github.com/xtr4nge/giskismet/archive/master.zip -O giskismet-master.zip
+unzip giskismet-master.zip
 cd giskismet-master
 perl Makefile.PL
 make
